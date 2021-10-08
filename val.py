@@ -51,7 +51,7 @@ def save_one_json(predn, jdict, path, class_map):
     for p, b in zip(predn.tolist(), box.tolist()):
         jdict.append({'image_id': image_id,
                       'category_id': class_map[int(p[5])],
-                      'bbox': [round(x, 3) for x in b],
+                      'bbox': [round(x) for x in b],
                       'score': round(p[4], 5)})
 
 
@@ -180,7 +180,7 @@ def run(data,
         targets[:, 2:] *= torch.Tensor([width, height, width, height]).to(device)  # to pixels
         lb = [targets[targets[:, 0] == i, 1:] for i in range(nb)] if save_hybrid else []  # for autolabelling
         t3 = time_sync()
-        out = non_max_suppression(out, conf_thres, iou_thres, labels=lb, multi_label=True, agnostic=single_cls)
+        out = non_max_suppression(out, conf_thres, iou_thres, labels=lb, multi_label=True, agnostic=single_cls, max_det=5)
         dt[2] += time_sync() - t3
 
         # Statistics per image
