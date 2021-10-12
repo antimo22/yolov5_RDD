@@ -48,6 +48,7 @@ def save_one_json(predn, jdict, path, class_map):
     image_id = int(path.stem) if path.stem.isnumeric() else path.stem
     box = xyxy2xywh(predn[:, :4])  # xywh
     box[:, :2] -= box[:, 2:] / 2  # xy center to top-left corner
+    box[:, 2:] += box[:, :2] #xy top-left corner and xy bottom-right corner
     for p, b in zip(predn.tolist(), box.tolist()):
         jdict.append({'image_id': image_id,
                       'category_id': class_map[int(p[5])],
