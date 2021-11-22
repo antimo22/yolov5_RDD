@@ -15,8 +15,8 @@ test: images/test1/
 
 
 # Classes
-nc: 9  # number of classes
-names: ['D00', 'D01', 'D10', 'D11', 'D20', 'D40', 'D43', 'D44', 'D50']  # class names
+nc: 4  # number of classes
+names: ['D00', 'D10', 'D20', 'D40']  # class names
 
 
 # Download script/URL (optional)
